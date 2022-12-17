@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {% if(origin.titre is defined) %}
+    Chatons de la catégorie {{ origin.titre }}
+    {% endif %}
+    {% if(origin.prenom is defined) %}
+        Chatons appartenant a {{ origin.nom }}
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper {
+            margin: 1em auto;
+            max-width: 800px;
+            width: 95%;
+            font: 18px/1.5 sans-serif;
+        }
+
+        .example-wrapper code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+        }
+    </style>
+
+    <div class="container">
+        {% if(origin.titre is defined) %}
+                <h1>Chatons de la catégorie {{ origin.titre }}</h1>
+        {% endif %}
+        {% if(origin.prenom is defined) %}
+                <h1>Chatons appartenant a {{ origin.nom }} {{ origin.prenom }}</h1>
+        {% endif %}
+
+        <div class="row">
+            {% for c in chatons %}
+                <div class="col col-3">
+                    <div class="card"><img src="{{ c.photo }}" alt=""
+                                           class="card-img-top">
+                        <div class="card-body">
+                            <h2 class="card-title">{{ c.nom }}</h2>
+                            <a href="{{ path("chaton_suprimer", {"id":c.id}) }}">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                            <a href="{{ path("chaton_modifier", {"id":c.id}) }}">
+                                <i class="fa fa-pen"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <a href="{{ path("chaton_ajouter") }}" class="mt-5 btn btn-primary">Ajouter un chaton</a>
+    </div>
+{% endblock %}

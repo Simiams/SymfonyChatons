@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des Proprietaires{% endblock %}
+
+{% block body %}
+    <div class="example-wrapper">
+        <h1>Gestion des Proprietaires</h1>
+        <table class="table table-striped">
+            <tr>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th></th>
+            </tr>
+            {% for p in proprietaires %}
+                <tr>
+                    <td>{{ p.nom }}</td>
+                    <td>{{ p.prenom }}</td>
+                    <td>
+                        <a href="{{ path("proprietaire_modifier",{"id":p.id}) }}" class="btn btn-primary">modifier</a>
+                        <a href="{{ path("proprietaire_supprimer",{"id":p.id}) }}" class="btn btn-danger">supprimer</a>
+                        <a href="{{ path("chaton_voir",{"id":p.id, source:"proprietaire"}) }}"
+                           class="btn btn-warning">chatons</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <h2>Ajouter un propietaire</h2>
+        {{ form(formulaire) }}
+    </div>
+{% endblock %}
